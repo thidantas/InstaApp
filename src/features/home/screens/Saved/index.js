@@ -1,10 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import SavedContainer from './ui';
 
-const Saved = () => (
-  <View>
-    <Text>TELA DE POSTS SALVOS</Text>
-  </View>
-);
-
+const Saved = () => <SavedContainer />;
 export default Saved;
