@@ -6,7 +6,7 @@ import Routes from '../routes/routes';
 const App = () => (
   <NavigationContainer>
     <StatusBar
-      backgroundColor="#fff"
+      backgroundColor="#FFFFFF"
       barStyle="dark-content"
       translucent={false}
     />
