@@ -20,6 +20,8 @@ Esse projeto está sendo desenvolvido com as seguintes tecnologias:
 ## 💻 Projeto
 **InstaApp é uma aplicação que buscará através de uma API REST simular alguns componentes do Instagram**
 
+**API utilizada: [dummyapi](https://dummyapi.io)**
+
 
 ## Instalação
 ### Pré requisitos
