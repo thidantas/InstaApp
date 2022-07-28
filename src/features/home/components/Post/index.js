@@ -1,14 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {formatDistance} from 'date-fns';
 import {enUS} from 'date-fns/locale';
+import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 
 import HeartIcon from '../../assets/icons/heart.svg';
+import HeartRedIcon from '../../assets/icons/heartRed.svg';
 import CommentIcon from '../../assets/icons/comment.svg';
-import BookMarkSaved from '../../assets/icons/bookmark.svg';
+import BookMarkIcon from '../../assets/icons/bookmark.svg';
+import BookMarkBlackIcon from '../../assets/icons/bookmarkBlack.svg';
 
 const Post = ({data}) => {
+  const navigation = useNavigation();
+
+  const [like, setLike] = useState(false);
+  const [save, setSave] = useState(false);
+
+  const handleLikePost = () => {
+    setLike(!like);
+  };
+
+  const handleSavePost = () => {
+    setSave(!save);
+  };
+
   const formatTimePost = () => {
     // console.log(data.publishDate);
     const datePost = new Date(data.publishDate);
@@ -34,16 +50,26 @@ const Post = ({data}) => {
       </View>
       <View style={styles.icons}>
         <View style={styles.contentIcons}>
-          <TouchableOpacity onPress={() => {}}>
-            <HeartIcon style={styles.like} />
+          <TouchableOpacity onPress={handleLikePost}>
+            {!like ? (
+              <HeartIcon style={styles.like} />
+            ) : (
+              <HeartRedIcon style={styles.comment} />
+            )}
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}} style={styles.commentButton}>
+          <TouchableOpacity
+            onPress={() => alert('abre a página de comentários')} // navigation.navigate('Comments')}
+            style={styles.commentButton}>
             <CommentIcon style={styles.comment} />
           </TouchableOpacity>
         </View>
         <View>
-          <TouchableOpacity onPress={() => {}}>
-            <BookMarkSaved style={styles.saved} />
+          <TouchableOpacity onPress={handleSavePost}>
+            {!save ? (
+              <BookMarkIcon style={styles.saved} />
+            ) : (
+              <BookMarkBlackIcon style={styles.saved} />
+            )}
           </TouchableOpacity>
         </View>
       </View>
