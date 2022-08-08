@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
   },
   commentPost: {
     flexDirection: 'row',
+    paddingTop: 3,
     paddingLeft: 12,
     paddingRight: 17,
     paddingBottom: 11,
