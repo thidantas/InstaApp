@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 
 const HomeNavigationStack = () => (
   <Tab.Navigator
-    initialRouteName={routes.Home.Saved}
+    initialRouteName={routes.Home.Feed}
     screenOptions={{
       headerShown: false,
       tabBarShowLabel: false,

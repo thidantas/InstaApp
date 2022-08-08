@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, ActivityIndicator} from 'react-native';
 import Header from '../../../components/Header';
 import styles from './styles';
 import Post from '../../../components/Post';
@@ -7,9 +7,11 @@ import Post from '../../../components/Post';
 const FeedContainer = ({
   posts,
   likedPosts,
-  savedPosts,
   onLikePost,
+  savedPosts,
+  loading,
   onSavePost,
+  onFetchPosts,
   onNavigateToComments,
 }) => (
   <View style={styles.container}>
@@ -19,6 +21,15 @@ const FeedContainer = ({
         style={styles.listPost}
         data={posts}
         keyExtractor={item => item.id}
+        onEndReached={() => onFetchPosts()}
+        onEndReachedThreshold={0.1}
+        ListFooterComponent={
+          loading && (
+            <View style={styles.loading}>
+              <ActivityIndicator size={20} color="#E1306C" />
+            </View>
+          )
+        }
         renderItem={({item}) => (
           <Post
             data={item}

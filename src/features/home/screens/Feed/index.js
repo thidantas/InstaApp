@@ -7,12 +7,21 @@ const Feed = ({navigation}) => {
   const [posts, setPosts] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
   const [savedPosts, setSavedPosts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
 
-  const fetchPosts = useCallback(async () => {
-    const response = await postService.list();
-    // console.log(response);
-    setPosts(response.data);
-  }, [setPosts]);
+  const handleOnFetchPosts = useCallback(
+    async (pageNumber = page) => {
+      setLoading(true);
+      const response = await postService.list(pageNumber);
+      // console.log(response);
+      const data = await response.data;
+      setPosts([...posts, ...data]);
+      setPage(pageNumber + 1);
+      setLoading(false);
+    },
+    [setPosts, page, setPage, setLoading],
+  );
 
   const handleOnLikePost = useCallback(postId => {
     // Verificar se esse post já tem o seu like
@@ -30,16 +39,18 @@ const Feed = ({navigation}) => {
   }, [navigation]);
 
   useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
+    handleOnFetchPosts();
+  }, []);
 
   return (
     <FeedContainer
       posts={posts}
-      savedPosts={savedPosts}
       likedPosts={likedPosts}
+      savedPosts={savedPosts}
+      loading={loading}
       onLikePost={handleOnLikePost}
       onSavePost={handleOnSavePost}
+      onFetchPosts={handleOnFetchPosts}
       onNavigateToComments={handleOnNavigateToComments}
     />
   );

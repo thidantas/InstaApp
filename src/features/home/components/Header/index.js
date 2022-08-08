@@ -6,7 +6,7 @@ import LogoHome from '../../assets/logo.svg';
 
 const Header = () => (
   <SafeAreaView style={styles.container}>
-    <LogoHome width={104} height={30} />
+    <LogoHome style={styles.logo} width={104} height={30} />
   </SafeAreaView>
 );
 
