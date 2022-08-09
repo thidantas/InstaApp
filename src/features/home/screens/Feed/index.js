@@ -5,18 +5,19 @@ import routes from '../../../../core/constants/routes';
 
 const Feed = ({navigation}) => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [likedPosts, setLikedPosts] = useState([]);
   const [savedPosts, setSavedPosts] = useState([]);
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const handleOnFetchPosts = useCallback(
-    async (pageNumber = page) => {
+    async (pageNumber = page, shouldRefresh = false) => {
       setLoading(true);
       const response = await postService.list(pageNumber);
       // console.log(response);
       const data = await response.data;
-      setPosts([...posts, ...data]);
+      setPosts(shouldRefresh ? data : [...posts, ...data]);
       setPage(pageNumber + 1);
       setLoading(false);
     },
@@ -42,16 +43,26 @@ const Feed = ({navigation}) => {
     handleOnFetchPosts();
   }, []);
 
+  const refreshList = async () => {
+    setRefreshing(true);
+
+    handleOnFetchPosts(page, true);
+
+    setRefreshing(false);
+  };
+
   return (
     <FeedContainer
       posts={posts}
+      loading={loading}
       likedPosts={likedPosts}
       savedPosts={savedPosts}
-      loading={loading}
+      refreshing={refreshing}
+      onFetchPosts={handleOnFetchPosts}
       onLikePost={handleOnLikePost}
       onSavePost={handleOnSavePost}
-      onFetchPosts={handleOnFetchPosts}
       onNavigateToComments={handleOnNavigateToComments}
+      onRefreshList={refreshList}
     />
   );
 };

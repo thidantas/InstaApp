@@ -9,10 +9,12 @@ const FeedContainer = ({
   likedPosts,
   onLikePost,
   savedPosts,
+  refreshing,
   loading,
   onSavePost,
   onFetchPosts,
   onNavigateToComments,
+  onRefreshList,
 }) => (
   <View style={styles.container}>
     <Header />
@@ -23,6 +25,8 @@ const FeedContainer = ({
         keyExtractor={item => item.id}
         onEndReached={() => onFetchPosts()}
         onEndReachedThreshold={0.1}
+        onRefresh={onRefreshList}
+        refreshing={refreshing}
         ListFooterComponent={
           loading && (
             <View style={styles.loading}>
