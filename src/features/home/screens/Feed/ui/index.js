@@ -37,11 +37,15 @@ const FeedContainer = ({
         renderItem={({item}) => (
           <Post
             data={item}
-            isLiked={likedPosts.includes(item.id)}
+            isLiked={likedPosts}
             isSaved={savedPosts.includes(item.id)}
-            onLikePost={() => onLikePost(item.id)}
+            onLikePost={() => {
+              onLikePost(item.id);
+            }}
             onSavePost={() => onSavePost(item.id)}
-            onNavigateToComments={onNavigateToComments}
+            onNavigateToComments={() => {
+              onNavigateToComments(item);
+            }}
           />
         )}
         showsVerticalScrollIndicator={false}

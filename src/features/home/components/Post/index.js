@@ -36,22 +36,22 @@ const Post = ({
     <View style={styles.icons}>
       <View style={styles.contentIcons}>
         <TouchableOpacity onPress={onLikePost}>
-          {!isLiked ? (
-            <HeartIcon style={styles.like} />
+          {!isLiked.includes(data.id) ? (
+            <HeartIcon style={styles.iconLike} />
           ) : (
-            <HeartRedIcon style={styles.comment} />
+            <HeartRedIcon style={styles.iconLike} />
           )}
         </TouchableOpacity>
         <TouchableOpacity
           onPress={onNavigateToComments}
           style={styles.commentButton}>
-          <CommentIcon style={styles.comment} />
+          <CommentIcon style={styles.iconComment} />
         </TouchableOpacity>
       </View>
       <View>
         <TouchableOpacity onPress={onSavePost}>
           {!isSaved ? (
-            <BookMarkIcon style={styles.saved} />
+            <BookMarkIcon style={styles.iconSaved} />
           ) : (
             <BookMarkBlackIcon style={styles.savedimage} />
           )}

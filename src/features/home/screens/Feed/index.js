@@ -16,7 +16,7 @@ const Feed = ({navigation}) => {
       setLoading(true);
       const response = await postService.list(pageNumber);
       // console.log(response);
-      const data = await response.data;
+      const {data} = response;
       setPosts(shouldRefresh ? data : [...posts, ...data]);
       setPage(pageNumber + 1);
       setLoading(false);
@@ -24,20 +24,36 @@ const Feed = ({navigation}) => {
     [setPosts, page, setPage, setLoading],
   );
 
-  const handleOnLikePost = useCallback(postId => {
+  const handleOnLikePost = postId => {
+    // console.log(postId);
+    // setLikedPosts(oldState => !oldState);
+    if (likedPosts?.includes(postId)) {
+      setLikedPosts(likedPosts.filter(post => post !== postId));
+    } else {
+      setLikedPosts(oldState => [...oldState, postId]);
+    }
     // Verificar se esse post já tem o seu like
     // Atualizar a quantidade de likes na api
     // Atualizar a lista de likedPosts
-  }, []);
+  };
 
   const handleOnSavePost = useCallback(postId => {
     // Verificar se esse post já está salvo
     // Atualizar a lista de posts salvos
   }, []);
 
-  const handleOnNavigateToComments = useCallback(() => {
-    navigation.navigate(routes.Comments.itself);
-  }, [navigation]);
+  const handleOnNavigateToComments = useCallback(
+    post => {
+      // console.log(post);
+      navigation.navigate(routes.Comments.itself, {
+        screen: routes.Comments.Home,
+        params: {
+          post,
+        },
+      });
+    },
+    [navigation],
+  );
 
   useEffect(() => {
     handleOnFetchPosts();
@@ -46,7 +62,7 @@ const Feed = ({navigation}) => {
   const refreshList = async () => {
     setRefreshing(true);
 
-    handleOnFetchPosts(page, true);
+    await handleOnFetchPosts(page, true);
 
     setRefreshing(false);
   };
