@@ -1,5 +1,5 @@
 const CommentsRoutes = {
-  itself: 'Comments.itself',
+  itself: 'Comentários',
   Home: 'Comments.Home',
 };
 

@@ -10,10 +10,8 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 49,
-    paddingTop: 14,
-    paddingBottom: 14,
-    paddingLeft: 8,
-    paddingRight: 8,
+    paddingVertical: 14,
+    paddingHorizontal: 8,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -57,18 +55,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  like: {
+  iconLike: {
     width: 21,
     height: 18.26,
   },
   commentButton: {
     marginLeft: 19,
   },
-  comment: {
+  iconComment: {
     width: 18.3,
     height: 18.26,
   },
-  saved: {
+  iconSaved: {
     width: 18,
     height: 26,
   },
